@@ -91,4 +91,30 @@ class PizzaController extends Controller
  
         return redirect(route('pizza.index'));
     }
+
+    /**
+     * Add the Pizza to Favourites
+     */
+   public function addToFavourites(Pizza $pizza): RedirectResponse
+   {
+        $favourites = session('favourites', collect([]));
+        $favourites->push($pizza);
+        session(['favourites' => $favourites]);
+        return redirect(route('pizza.index'));
+   }
+
+    /**
+     * Show the Chirps in Favourites
+     */
+    public function favourites(): View
+    {
+         $favourites = session('favourites', collect([]));
+         return view('pizza.favourites', [
+ 
+               'pizza' => $favourites,
+ 
+         ]);
+ 
+ 
+    }
 }

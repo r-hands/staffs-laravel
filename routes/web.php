@@ -24,9 +24,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('pizza', PizzaController::class)
-    ->only(['index', 'store', 'edit', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']); 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('pizza', PizzaController::class)
+       ->only(['index', 'store', 'edit', 'update', 'destroy']);
+    Route::post(
+        '/pizza/{pizza}/addToFavourites',
+        [PizzaController::class, 'addToFavourites']
+     )->name('pizza.favourites.add');
+     Route::get(
+        '/pizza/favourites',
+        [PizzaController::class, 'favourites']
+     )->name('pizza.favourites');
+  });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

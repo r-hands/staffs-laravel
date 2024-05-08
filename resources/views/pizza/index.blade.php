@@ -21,11 +21,11 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <div>
-                                <span class="text-gray-800">{{ $pizza->user->name }}</span>
-                                <small class="ml-2 text-sm text-gray-600">{{ $pizza->created_at->format('j M Y, g:i a') }}</small>
-                                    @unless ($pizza->created_at->eq($pizza->updated_at))
-                                        <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
-                                    @endunless
+                                    <span class="text-gray-800">{{ $pizza->user->name }}</span>
+                                    <small class="ml-2 text-sm text-gray-600">{{ $pizza->created_at->format('j M Y, g:i a') }}</small>
+                                        @unless ($pizza->created_at->eq($pizza->updated_at))
+                                            <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
+                                        @endunless
                                 </div>
                                 @if ($pizza->user->is(auth()->user()))
                                     <x-dropdown>
